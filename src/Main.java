@@ -2,7 +2,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class Kiosk {
+public class Main {
     public static void main(String[] args) {
         List<MenuItem> menuItems = new ArrayList<>(); // 메뉴 항목 관리 리스트
         // 메뉴 항목
