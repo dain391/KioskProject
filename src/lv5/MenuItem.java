@@ -1,3 +1,5 @@
+package lv5;
+
 public class MenuItem {
     private String name;
     private double price;
