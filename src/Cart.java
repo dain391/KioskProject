@@ -19,4 +19,40 @@ public class Cart {
             quantities.add(1);
         }
     }
+
+    // 장바구니 출력
+    public void showCart() {
+        if (menuItems.isEmpty()) {
+            System.out.println("\n장바구니가 비어 있습니다.");
+            return;
+        }
+        System.out.println("\n[ ORDERS ]");
+        for (int i = 0; i < menuItems.size(); i++) {
+            MenuItem item = menuItems.get(i);
+            int quantity = quantities.get(i);
+            System.out.println(item.getName() + " | w " + item.getPrice() + " | " + item.getInfo() + " | 수량 : " + quantity);
+        }
+        System.out.println("\n[ TOTAL ]");
+        System.out.println("w " + calculateTotal());
+    }
+
+    // 장바구니 총 금액 계산
+    public double calculateTotal() {
+        double total = 0;
+        for (int i = 0; i < menuItems.size(); i++) {
+            total += menuItems.get(i).getPrice() * quantities.get(i);
+        }
+        return total;
+    }
+
+    // 장바구니 초기화
+    public void clearCart() {
+        menuItems.clear();
+        quantities.clear();
+    }
+
+    // 장바구니 비어있는지 확인
+    public boolean isEmpty() {
+        return menuItems.isEmpty();
+    }
 }
