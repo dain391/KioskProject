@@ -28,8 +28,8 @@ public class Cart {
             System.out.println("\n장바구니가 비어 있습니다.");
             return;
         }
-        System.out.println("아래와 같이 주문 하시겠습니까?");
-        System.out.println("\n[ ORDERS ]");
+        System.out.println("\n아래와 같이 주문 하시겠습니까?");
+        System.out.println("[ ORDERS ]");
         for (int i = 0; i < menuItems.size(); i++) {
             MenuItem item = menuItems.get(i);
             int quantity = quantities.get(i);

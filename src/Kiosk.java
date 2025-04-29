@@ -19,7 +19,8 @@ public class Kiosk {
 
         // 반복문 시작
         while (true) {
-            System.out.println("\n[ MAIN MENU ]");
+            System.out.println("\n아래 메뉴판에서 원하시는 항목을 선택하세요.");
+            System.out.println("[ MAIN MENU ]");
 
             // 리스트 메뉴 출력 (상위 카테고리 출력)
             int index = 1;
