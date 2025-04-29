@@ -4,10 +4,12 @@ import java.util.InputMismatchException;
 
 public class Kiosk {
     private List<Menu> menus; // 카테고리 리스트
+    private Cart cart;
 
     // 생성자
     public Kiosk(List<Menu> menus) {
         this.menus = menus;
+        this.cart = new Cart(); // Kiosk 생성 시 장바구니도 같이
     }
 
     // 프로그램 시작
@@ -25,6 +27,12 @@ public class Kiosk {
                 System.out.println(index++ + ". " + menu.getCategory());
             }
             System.out.println("0. Exit");
+
+            if (!cart.isEmpty()) {
+                System.out.println("\n[ ORDER MENU ]");
+                System.out.println("4. Orders | 장바구니 확인 후 주문합니다.");
+                System.out.println("5. Cancel | 진행중인 주문을 취소합니다.");
+            }
 
             // 메뉴 선택 받기 (while문으로 입력 반복 처리)
             int select = -1;
@@ -47,6 +55,44 @@ public class Kiosk {
             if (select == 0) {
                 System.out.println("프로그램을 종료합니다.");
                 break;
+            }
+
+            // 장바구니 관련 기능 처리
+            if (select == 4) { // 주문 메뉴
+                if (cart.isEmpty()) {
+                    System.out.println("장바구니가 비어있습니다. 주문할 수 없습니다.");
+                    continue;
+                }
+                cart.showCart();
+                System.out.println("\n1. 주문하기  2. 메뉴판으로 돌아가기");
+                int orderSelect = -1;
+                while (true) {
+                    System.out.print("선택하세요: ");
+                    try {
+                        orderSelect = sc.nextInt();
+                        sc.nextLine(); // 버퍼 비우기
+                        break;
+                    } catch (InputMismatchException e) {
+                        System.out.println("잘못된 입력입니다. 숫자를 입력해주세요.");
+                        sc.nextLine();
+                    }
+                }
+                if (orderSelect == 1) {
+                    System.out.println("주문이 완료되었습니다. 금액은 w " + cart.() + " 입니다.");
+                    cart.clearCart(); // 주문 완료 후 장바구니 비우기
+                } else {
+                    System.out.println("메뉴판으로 돌아갑니다.");
+                }
+                continue;
+            }
+            if (select == 5) {
+                if (cart.isEmpty()) {
+                    System.out.println("장바구니가 비어있습니다. 취소할 주문이 없습니다");
+                    continue;
+                }
+                cart.clearCart();
+                System.out.println("진행 중인 주문이 최소되었습니다.");
+                continue;
             }
 
             // 메뉴 선택 처리
@@ -86,6 +132,28 @@ public class Kiosk {
                 // 선택한 메뉴 아이템 출력
                 MenuItem selectedItem = selected.getMenuItems().get(itemSelect - 1);
                 System.out.println("선택한 메뉴: " + selectedItem.getName().trim() + " | W " + selectedItem.getPrice() + " | " + selectedItem.getInfo());
+
+                // 장바구니에 담을지 확인
+                System.out.println("\n위 메뉴를 장바구니에 추가하시겠습니까?");
+                System.out.println("1. 확인    2. 취소");
+                int addCartSelect = -1;
+                while (true) {
+                    System.out.println("선택하세요: ");
+                    try {
+                        addCartSelect = sc.nextInt();
+                        sc.nextLine(); // 버퍼 비움
+                        break;
+                    } catch (InputMismatchException i) {
+                        System.out.println("잘못된 입력입니다. 숫자를 입력해주세요.");
+                        sc.nextLine();
+                    }
+                }
+                if (addCartSelect == 1) {
+                    cart.addItem(selectedItem);
+                    System.out.println(selectedItem.getName() + "이(가) 장바구니에 추가되었습니다.");
+                } else {
+                    System.out.println("메뉴 추가를 취소했습니다.");
+                }
             }
         }
     }

@@ -33,11 +33,11 @@ public class Cart {
             System.out.println(item.getName() + " | w " + item.getPrice() + " | " + item.getInfo() + " | 수량 : " + quantity);
         }
         System.out.println("\n[ TOTAL ]");
-        System.out.println("w " + calculateTotal());
+        System.out.println("w " + getTotalPrice());
     }
 
     // 장바구니 총 금액 계산
-    public double calculateTotal() {
+    public double getTotalPrice() {
         double total = 0;
         for (int i = 0; i < menuItems.size(); i++) {
             total += menuItems.get(i).getPrice() * quantities.get(i);
