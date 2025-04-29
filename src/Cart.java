@@ -1,3 +1,5 @@
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,11 +28,12 @@ public class Cart {
             System.out.println("\n장바구니가 비어 있습니다.");
             return;
         }
+        System.out.println("아래와 같이 주문 하시겠습니까?");
         System.out.println("\n[ ORDERS ]");
         for (int i = 0; i < menuItems.size(); i++) {
             MenuItem item = menuItems.get(i);
             int quantity = quantities.get(i);
-            System.out.println(item.getName() + " | w " + item.getPrice() + " | " + item.getInfo() + " | 수량 : " + quantity);
+            System.out.printf("%-12s | w %-3.1f | %-30s | 수량 : %d\n", item.getName(), item.getPrice(), item.getInfo(), quantity);
         }
         System.out.println("\n[ TOTAL ]");
         System.out.println("w " + getTotalPrice());
@@ -42,7 +45,10 @@ public class Cart {
         for (int i = 0; i < menuItems.size(); i++) {
             total += menuItems.get(i).getPrice() * quantities.get(i);
         }
-        return total;
+        // 소수점 둘째자리 반올림
+        BigDecimal bd = new BigDecimal(total);
+        bd = bd.setScale(2, RoundingMode.HALF_UP);
+        return bd.doubleValue(); // 포맷팅된 double 반환
     }
 
     // 장바구니 초기화

@@ -34,15 +34,20 @@ public class Kiosk {
                 System.out.println("5. Cancel | 진행중인 주문을 취소합니다.");
             }
 
+            int maxOption = menus.size(); // 기본은 카테고리 개수
+            if (!cart.isEmpty()) {
+                maxOption = 5; // 장바구니가 있으면 5까지 허용
+            }
+
             // 메뉴 선택 받기 (while문으로 입력 반복 처리)
             int select = -1;
-            while (select < 0 || select > menus.size()) {
-                System.out.print("\n메뉴를 선택하세요: ");
+            while (select < 0 || select > maxOption) {
+                System.out.print("\n카테고리를 선택하세요: ");
                 try {
                     select = sc.nextInt(); // 숫자 입력 받기
                     sc.nextLine(); // 버퍼 비우기
 
-                    if (select < 0 || select > menus.size()) {
+                    if (select < 0 || select > maxOption) {
                         System.out.println("잘못된 입력입니다. 다시 선택해주세요.");
                     }
                 } catch (InputMismatchException e) {
@@ -64,7 +69,7 @@ public class Kiosk {
                     continue;
                 }
                 cart.showCart();
-                System.out.println("\n1. 주문하기  2. 메뉴판으로 돌아가기");
+                System.out.println("\n1. 주문하기    2. 메뉴판으로 돌아가기");
                 int orderSelect = -1;
                 while (true) {
                     System.out.print("선택하세요: ");
@@ -78,7 +83,7 @@ public class Kiosk {
                     }
                 }
                 if (orderSelect == 1) {
-                    System.out.println("주문이 완료되었습니다. 금액은 w " + cart.() + " 입니다.");
+                    System.out.println("주문이 완료되었습니다. 금액은 W" + cart.getTotalPrice() + "입니다.");
                     cart.clearCart(); // 주문 완료 후 장바구니 비우기
                 } else {
                     System.out.println("메뉴판으로 돌아갑니다.");
@@ -91,7 +96,7 @@ public class Kiosk {
                     continue;
                 }
                 cart.clearCart();
-                System.out.println("진행 중인 주문이 최소되었습니다.");
+                System.out.println("진행 중인 주문이 취소되었습니다.");
                 continue;
             }
 
@@ -103,11 +108,12 @@ public class Kiosk {
                 System.out.println("\n[ " + selected.getCategory().toUpperCase() + " MENU ]");
                 int index2 = 1;
                 for (MenuItem item : selected.getMenuItems()) {
-                    System.out.println(index2++ + ". " + item.getName() + " | W " + item.getPrice() + " | " + item.getInfo());
+                    System.out.printf("%-1d. %-12s | W %3.1f | %s\n",
+                            index2++, item.getName(), item.getPrice(), item.getInfo());
                 }
 
                 // 뒤로 가기 옵션 추가
-                System.out.println("0. Back          | w  -  | 이전");
+                System.out.println("0. Back         | w  -  | 이전");
 
                 // 메뉴 아이템 선택 받기
                 int itemSelect = -1;
@@ -131,14 +137,14 @@ public class Kiosk {
                 }
                 // 선택한 메뉴 아이템 출력
                 MenuItem selectedItem = selected.getMenuItems().get(itemSelect - 1);
-                System.out.println("선택한 메뉴: " + selectedItem.getName().trim() + " | W " + selectedItem.getPrice() + " | " + selectedItem.getInfo());
+                System.out.println("선택한 메뉴: " + selectedItem.getName() + " | W " + selectedItem.getPrice() + " | " + selectedItem.getInfo());
 
                 // 장바구니에 담을지 확인
                 System.out.println("\n위 메뉴를 장바구니에 추가하시겠습니까?");
                 System.out.println("1. 확인    2. 취소");
                 int addCartSelect = -1;
                 while (true) {
-                    System.out.println("선택하세요: ");
+                    System.out.print("선택하세요: ");
                     try {
                         addCartSelect = sc.nextInt();
                         sc.nextLine(); // 버퍼 비움
