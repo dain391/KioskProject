@@ -22,11 +22,12 @@ public class Menu {
         return menuItems;
     }
 
-    // List에 들어있는 MenuItem을 순차적으로 보여주는 함수
+    // List에 들어있는 MenuItem을 순차적으로 보여주는 함수 -> 스트림 사용
     public void printMenuItems() {
-        int index = 1;
-        for (MenuItem item : menuItems) {
-            System.out.println(index++ + ". " + item.getName() + " | w " + item.getPrice() + " | " + item.getInfo());
-        }
+        menuItems.stream()
+                .forEachOrdered(item -> {
+                    int index = menuItems.indexOf(item) + 1;
+                    System.out.println(index + ". " + item.getName() + " | w " + item.getPrice() + " | " + item.getInfo());
+                });
     }
 }
