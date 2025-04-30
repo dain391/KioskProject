@@ -110,7 +110,7 @@ public class Kiosk {
                     // discount 클래스에서 할인 계싼 호출
                     double finalPrice = Discount.applyDiscount(totalPrice, userTypeChoice);
 
-                    System.out.println("주문이 완료되었습니다. 금액은 w%.1f 입니다.\n" + finalPrice);
+                    System.out.printf("주문이 완료되었습니다. 금액은 w%.1f 입니다.\n", finalPrice);
                     cart.clearCart(); // 주문 완료 후 장바구니 비우기
                 } else {
                     System.out.println("메뉴판으로 돌아갑니다.");
