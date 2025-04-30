@@ -31,8 +31,8 @@ public class Kiosk {
 
             if (!cart.isEmpty()) {
                 System.out.println("\n[ ORDER MENU ]");
-                System.out.println("4. Orders | 장바구니 확인 후 주문합니다.");
-                System.out.println("5. Cancel | 진행중인 주문을 취소합니다.");
+                System.out.println("4. Orders | 장바구니를 확인합니다.");
+                System.out.println("5. Cancel | 장바구니를 비우고 주문을 취소합니다.");
             }
 
             int maxOption = menus.size(); // 기본은 카테고리 개수
@@ -70,7 +70,7 @@ public class Kiosk {
                     continue;
                 }
                 cart.showCart();
-                System.out.println("\n1. 주문하기    2. 메뉴판으로 돌아가기");
+                System.out.println("\n1. 주문하기    2. 메뉴 삭제하기    3. 이전으로 돌아가기");
                 int orderSelect = -1;
                 while (true) {
                     System.out.print("선택하세요 > ");
@@ -112,7 +112,9 @@ public class Kiosk {
 
                     System.out.printf("주문이 완료되었습니다. 금액은 w%.1f 입니다.\n", finalPrice);
                     cart.clearCart(); // 주문 완료 후 장바구니 비우기
-                } else {
+                } else if (orderSelect == 2) {
+                    removeFromCart(sc);
+                } else if (orderSelect == 3) {
                     System.out.println("메뉴판으로 돌아갑니다.");
                 }
                 continue;
@@ -187,6 +189,28 @@ public class Kiosk {
                 } else {
                     System.out.println("메뉴 추가를 취소했습니다.");
                 }
+            }
+        }
+    }
+
+    // 장바구니에서 특정메뉴 제거
+    public void removeFromCart(Scanner sc) {
+        if (cart.isEmpty()) {
+            System.out.println("\n장바구니가 비어있습니다.");
+            return;
+        }
+        cart.showCart(); // 장바구니 보여주기
+
+        while (true) {
+            System.out.print("\n제거할 메뉴의 이름을 입력하세요 > ");
+            String nameToRemove = sc.nextLine();
+            boolean removed = cart.removeItem(nameToRemove); // 제거시도
+
+            if (removed) {
+                System.out.println("[" + nameToRemove + "] 메뉴를 장바구니에서 제거했습니다.");
+                break;
+            } else {
+                System.out.println("해당 메뉴가 장바구니에 없습니다. 다시 입력해주세요.");
             }
         }
     }

@@ -63,21 +63,14 @@ public class Cart {
     }
 
     // 이름 일치 메뉴 제거
-    public void removeItem (String itemName) {
-        // 메뉴 이름이 itemName과 다른 것만 필터링 -> 리스트 생성
-        List<MenuItem> filtered = menuItems.stream()
-                .filter(item -> !item.getName().equals(itemName))
+    public boolean removeItem(String name) {
+        int oSize = menuItems.size();
+
+        // Stream + filler 사용 / 이름 일치 X 항목 유지
+        menuItems = menuItems.stream()
+                .filter(item -> !item.getName().equalsIgnoreCase(name))
                 .toList();
 
-        // 수량 리스트 재구성
-        List<Integer> filteredQuantities = new ArrayList<>();
-        for (MenuItem item : filtered) {
-            int index = menuItems.indexOf(item);
-            filteredQuantities.add(quantities.get(index));
-        }
-
-        // 기존 리스트 새 리스트로 교체
-        this.menuItems = filtered;
-        this.quantities = filteredQuantities;
+        return menuItems.size() < oSize; // 제거됐다면 true
     }
 }
