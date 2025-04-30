@@ -43,7 +43,7 @@ public class Kiosk {
             // 메뉴 선택 받기 (while문으로 입력 반복 처리)
             int select = -1;
             while (select < 0 || select > maxOption) {
-                System.out.print("\n카테고리를 선택하세요: ");
+                System.out.print("\n카테고리를 선택하세요 > ");
                 try {
                     select = sc.nextInt(); // 숫자 입력 받기
                     sc.nextLine(); // 버퍼 비우기
@@ -73,7 +73,7 @@ public class Kiosk {
                 System.out.println("\n1. 주문하기    2. 메뉴판으로 돌아가기");
                 int orderSelect = -1;
                 while (true) {
-                    System.out.print("선택하세요: ");
+                    System.out.print("선택하세요 > ");
                     try {
                         orderSelect = sc.nextInt();
                         sc.nextLine(); // 버퍼 비우기
@@ -83,8 +83,34 @@ public class Kiosk {
                         sc.nextLine();
                     }
                 }
+                // 주문 시 할인
                 if (orderSelect == 1) {
-                    System.out.println("주문이 완료되었습니다. 금액은 W" + cart.getTotalPrice() + "입니다.");
+                    int userTypeChoice = 0;
+
+                    // 할인 선택
+                    while (true) {
+                        System.out.println("할인 정보를 입력해주세요.");
+                        System.out.println("1. 국가유공자 : 10%");
+                        System.out.println("2. 군     인 : 5%");
+                        System.out.println("3. 학     생 : 3%");
+                        System.out.println("4. 일     반 : 0%");
+                        System.out.print("입력하세요 > ");
+
+                        userTypeChoice = sc.nextInt();
+                        // 값 검증
+                        if (userTypeChoice >= 1 && userTypeChoice <= 4) {
+                            break;
+                        } else {
+                            System.out.println("잘못된 입력입니다. 다시 시도해주세요.");
+                        }
+                    }
+                    // 장바구니 총액
+                    double totalPrice = cart.getTotalPrice();
+
+                    // discount 클래스에서 할인 계싼 호출
+                    double finalPrice = Discount.applyDiscount(totalPrice, userTypeChoice);
+
+                    System.out.println("주문이 완료되었습니다. 금액은 w%.1f 입니다.\n" + finalPrice);
                     cart.clearCart(); // 주문 완료 후 장바구니 비우기
                 } else {
                     System.out.println("메뉴판으로 돌아갑니다.");
@@ -119,7 +145,7 @@ public class Kiosk {
                 // 메뉴 아이템 선택 받기
                 int itemSelect = -1;
                 while (itemSelect < 0 || itemSelect > selected.getMenuItems().size()) {
-                    System.out.print("\n메뉴를 선택하세요: ");
+                    System.out.print("\n메뉴를 선택하세요 > ");
                     try {
                         itemSelect = sc.nextInt(); // 숫자 입력 받기
                         sc.nextLine(); // 버퍼 비우기
@@ -145,7 +171,7 @@ public class Kiosk {
                 System.out.println("1. 확인    2. 취소");
                 int addCartSelect = -1;
                 while (true) {
-                    System.out.print("선택하세요: ");
+                    System.out.print("선택하세요 > ");
                     try {
                         addCartSelect = sc.nextInt();
                         sc.nextLine(); // 버퍼 비움

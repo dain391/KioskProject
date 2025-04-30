@@ -16,6 +16,7 @@ public class Menu {
     public String getCategory() {
         return category;
     }
+
     // List를 리턴하는 함수
     public List<MenuItem> getMenuItems() {
         return menuItems;
