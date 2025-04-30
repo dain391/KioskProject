@@ -7,7 +7,7 @@ public class Discount {
         UserType userType = null;
         // 입력에 따른 설정
         switch (userTypeChoice) {
-            case 1 -> userType = UserType.VETEPRAN;
+            case 1 -> userType = UserType.VETERAN;
             case 2 -> userType = UserType.SOLDIER;
             case 3-> userType = UserType.STUDENT;
             case 4 -> userType = UserType.GENERAL;
