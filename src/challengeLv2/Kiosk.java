@@ -1,6 +1,8 @@
+package challengeLv2;
+
+import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
-import java.util.InputMismatchException;
 
 public class Kiosk {
     private List<Menu> menus; // 카테고리 리스트
