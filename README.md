@@ -85,8 +85,7 @@
     
   ① `MenuItem`, `Menu` 그리고 `Kiosk` 클래스의 필드에 직접 접근하지 못하도록 설정(`private`)  
   ② `Getter`와 `Setter` 메서드를 사용해 데이터 관리
-    
-
+</details>
 
 ### 2. 도전 기능 가이드
 
